@@ -30,8 +30,5 @@ class ReadConfig:
 
 if __name__=="__main__":
     test = ReadConfig()
-    # app_token = test.get_token('app_login')
-    # url = test.get_url('lark_url')
-    # url = test.get_host('online_host') + test.get_path('app_path')
     tk = test.get_accessid('accessId')
     print(tk)

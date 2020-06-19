@@ -3,11 +3,12 @@ import time
 import hashlib
 
 class PublicUtils:
+    #时间戳
     @staticmethod
     def location_time():
         # print(1111)
         return round(time.time() * 1000)
-
+    #md5加密
     @staticmethod
     def hash_body(body):
         md = hashlib.md5()
