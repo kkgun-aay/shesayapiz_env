@@ -33,14 +33,16 @@ class Test_flashprofile:
 
         resq = requests.post(url,data=json.dumps(data),headers=header)
         # allure.attach(resq.text,"响应",allure.attachment_type.TEXT)
-        allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+        # allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
         try:
             assert resq.status_code == 200
             assert resq.json()['success'] == True
             assert 'flashProfile' in resq.json()
+            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
         except:
             # print(resq.json())
             print('接口请求失败')
+            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_flashprofile.py'])

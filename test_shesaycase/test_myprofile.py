@@ -35,12 +35,14 @@ class Testprofile():
         allure.attach(json.dumps(data), '接口数据', allure.attachment_type.JSON)
 
         resq = requests.post(url, data=json.dumps(data), headers=header)
-        allure.attach(json.dumps(resq.json(),ensure_ascii=False), "响应", allure.attachment_type.JSON)
+        # allure.attach(json.dumps(resq.json(),ensure_ascii=False), "响应", allure.attachment_type.JSON)
         try:
             assert resq.status_code == 200
             assert resq.json()['success'] == True
+            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
         except:
             print('接口失败')
+            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_myprofile.py'])
