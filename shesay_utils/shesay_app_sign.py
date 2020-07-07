@@ -3,7 +3,7 @@ import time
 import hashlib
 import json
 from shesay_utils.shesay_util import PublicUtils
-from shesay_conf.get_intdata import ReadConfig
+from shesay_conf.get_inidata import ReadConfig
 
 
 class App_sign:
@@ -16,8 +16,9 @@ class App_sign:
         # print(dict_data)
         accesssign = ''
         for key in sorted(dict_data):
-            accesssign += key + ' ' + json.dumps(dict_data[key]) + '\n'
-
+            accesssign += key + ' ' + json.dumps(dict_data[key], separators=(',',':'), ensure_ascii=False) + '\n'
+        # print(accesssign)
+        # print(type(accesssign))
         #加密方式
         app_login_token = self.read.get_token('app_login')
         accesssign = PublicUtils.hash_body(accesssign + app_login_token)
