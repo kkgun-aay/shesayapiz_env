@@ -18,5 +18,7 @@ shesaycase ---测试用例目录
 
 .gitattributes ---修改GitHub语言类型为Python
 
+runcase.py ---运行整个shesaycase目录下的测试用例
+
 
 
