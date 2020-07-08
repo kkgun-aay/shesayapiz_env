@@ -8,41 +8,41 @@ from shesay_utils.shesay_app_sign import App_sign
 import requests
 
 
+class Test_bookcreatepost:
 
-class Testprofile():
-
-    @allure.feature('资料页接口')
-    @allure.story('个人资料')
+    @allure.feature('发布图书动态接口')
+    @allure.story('发布图书接口返回正常')
     @allure.severity('blocker')
-    def test_myprofile(self):
+    def test_bookcreatepost(self):
         '''
-        myprofile接口用例
+        bookcreatepost图书类型接口用例
         '''
-
         accessId = ReadConfig().get_accessid('accessId')
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/myprofile'
+        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/createpost'
         accesstime = PublicUtils().location_time()
-        # url = ReadConfig.get_host('online_host')+ ReadConfig.get_path('app_path') + 'v1/myprofile'
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
         data = {
-	        "accessId": accessId,
-	        "accessTime": accesstime,
-	        "allowAppNotice": 1
-            }
+            'accessTime': accesstime,
+            'accessId': accessId,
+            'background': '#768699-#768699',
+            'words': '分享一本我最近看过的书,希望你也喜欢~',
+            'type': 'book',
+            'hobbyId': '1084336'
+        }
+
         data['accessSign'] = App_sign().get_sign(data)
         allure.attach(json.dumps(data), '接口数据', allure.attachment_type.JSON)
 
         resq = requests.post(url, data=json.dumps(data), headers=header)
-        # allure.attach(json.dumps(resq.json(),ensure_ascii=False), "响应", allure.attachment_type.JSON)
+        print(resq.json())
         # try:
         assert resq.status_code == 200
         assert resq.json()['success'] == True
+        assert 'pid' in resq.json()
+        assert resq.json()['postCover'] == r"https://cover.intelcupid.com/book/cover/1084336.jpg"
         allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        # except:
-        #     print('接口失败')
-        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
 
 if __name__ == '__main__':
-    pytest.main(['-q','-s','test_myprofile.py'])
+    pytest.main(['-q','-s','test_createpostbook.py'])

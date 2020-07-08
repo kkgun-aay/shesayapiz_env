@@ -2,7 +2,7 @@
 import pytest
 import allure
 import json
-from shesay_conf.get_intdata import ReadConfig
+from shesay_conf.get_inidata import ReadConfig
 from shesay_utils.shesay_util import PublicUtils
 from shesay_utils.shesay_app_sign import App_sign
 import requests
@@ -32,17 +32,16 @@ class Test_flashprofile:
         allure.attach(json.dumps(data),'接口数据',allure.attachment_type.JSON)
 
         resq = requests.post(url,data=json.dumps(data),headers=header)
-        # allure.attach(resq.text,"响应",allure.attachment_type.TEXT)
-        # allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        try:
-            assert resq.status_code == 200
-            assert resq.json()['success'] == True
-            assert 'flashProfile' in resq.json()
-            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        except:
-            # print(resq.json())
-            print('接口请求失败')
-            allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+        print(resq.json())
+        # try:
+        assert resq.status_code == 200
+        assert resq.json()['success'] == True
+        assert 'flashProfile' in resq.json()
+        allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+        # except:
+        #     # print(resq.json())
+        #     print('接口请求失败')
+        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_flashprofile.py'])
