@@ -16,7 +16,7 @@ class App_sign:
         # print(dict_data)
         accesssign = ''
         for key in sorted(dict_data):
-            accesssign += key + ' ' + json.dumps(dict_data[key], separators=(',',':'), ensure_ascii=False) + '\n'
+            accesssign += xxxx+ 'xxxx' + xxxxx + xxxx
         # print(accesssign)
         # print(type(accesssign))
         #加密方式
