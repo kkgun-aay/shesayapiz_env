@@ -10,6 +10,11 @@ import requests
 
 class Test_flashprofile:
 
+    def setup_class(self):
+        self.accessId = ReadConfig().get_accessid('accessId')
+        self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/flashprofile'
+        self.accesstime = PublicUtils().location_time()
+
     @allure.feature('闪聊接口')
     @allure.story('飞行闪聊数据')
     @allure.severity('blocker')
@@ -18,12 +23,12 @@ class Test_flashprofile:
         '''
         flashproflie接口用例
         '''
-        accessId = ReadConfig().get_accessid('accessId')
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/flashprofile'
-        accesstime = PublicUtils().location_time()
+        # accessId = ReadConfig().get_accessid('accessId')
+        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/flashprofile'
+        # accesstime = PublicUtils().location_time()
         data = {
-            'accessId': accessId,
-            'accessTime': accesstime
+            'accessId': self.accessId,
+            'accessTime': self.accesstime
         }
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
@@ -31,7 +36,7 @@ class Test_flashprofile:
         data['accessSign'] = App_sign().get_sign(data)
         allure.attach(json.dumps(data),'接口数据',allure.attachment_type.JSON)
 
-        resq = requests.post(url,data=json.dumps(data),headers=header)
+        resq = requests.post(self.url,data=json.dumps(data),headers=header)
         print(resq.json())
         # try:
         assert resq.status_code == 200

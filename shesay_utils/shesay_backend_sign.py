@@ -3,7 +3,7 @@ import time
 import hashlib
 import json
 from shesay_utils.shesay_util import PublicUtils
-from shesay_conf.get_intdata import ReadConfig
+from shesay_conf.get_inidata import ReadConfig
 
 class Backend_sign:
     def __init__(self):

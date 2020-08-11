@@ -10,24 +10,28 @@ import requests
 
 class Test_selecemessagelist:
 
+    def setup_class(self):
+        self.accessId = ReadConfig().get_accessid('accessId')
+        self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/selectmessagelist'
+        self.accesstime = PublicUtils().location_time()
+
     @allure.feature('查询消息列表')
     @allure.story('消息列表数据返回正常')
     @allure.severity('blocker')
-
     def test_messagelistselect(self):
         '''
         selectmessagelist接口用例
         '''
-        accessId = ReadConfig().get_accessid('accessId')
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/selectmessagelist'
-        accesstime = PublicUtils().location_time()
+        # accessId = ReadConfig().get_accessid('accessId')
+        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/selectmessagelist'
+        # accesstime = PublicUtils().location_time()
         header = {
             'Content-Type': 'application/json;charset=UTF-8',
             'Accept': '*/*'
         }
         data = {
-            'accessTime': accesstime,
-            'accessId': accessId,
+            'accessTime': self.accesstime,
+            'accessId': self.accessId,
             'gender': 1,
             'findStatus': [1,3],
             'waiting': 1
@@ -36,7 +40,7 @@ class Test_selecemessagelist:
         data['accessSign'] = App_sign().get_sign(data)
         # print(type(data))
         allure.attach(json.dumps(data), '接口数据', allure.attachment_type.JSON)
-        resq = requests.post(url, data=json.dumps(data), headers=header)
+        resq = requests.post(self.url, data=json.dumps(data), headers=header)
         print(resq.json())
         # # try:
         assert resq.status_code == 200

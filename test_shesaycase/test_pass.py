@@ -10,23 +10,27 @@ import requests
 
 class Test_pass:
 
+    def setup_class(self):
+        self.accessId = ReadConfig().get_accessid('accessId')
+        self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/pass'
+        self.accesstime = PublicUtils().location_time()
+
     @allure.feature('推荐页dislike')
     @allure.story('点击dislike数据返回正常')
     @allure.severity('blocker')
-
     def test_pass(self):
         '''
         pass接口用例
         '''
-        accessId = ReadConfig().get_accessid('accessId')
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/pass'
-        accesstime = PublicUtils().location_time()
+        # accessId = ReadConfig().get_accessid('accessId')
+        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/pass'
+        # accesstime = PublicUtils().location_time()
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
         data = {
-            'accessTime': accesstime,
-            'accessId': accessId,
+            'accessTime': self.accesstime,
+            'accessId': self.accessId,
             'targetId': '5d0a41711e5d874a41593310',
             'inspectTime': 0
         }
@@ -34,7 +38,7 @@ class Test_pass:
         data['accessSign'] = App_sign().get_sign(data)
         allure.attach(json.dumps(data), '接口数据', allure.attachment_type.JSON)
 
-        resq = requests.post(url, data=json.dumps(data), headers=header)
+        resq = requests.post(self.url, data=json.dumps(data), headers=header)
         # try:
         assert resq.status_code == 200
         assert resq.json()['success'] == True

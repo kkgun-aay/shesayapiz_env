@@ -31,8 +31,13 @@ def get_musicpid():
 
 @allure.feature('发布动态接口')
 class Test_delmusics():
-    accessId = ReadConfig().get_accessid('accessId')
-    accesstime = PublicUtils().location_time()
+
+    def setup_class(self):
+        self.accessId = ReadConfig().get_accessid('accessId')
+        self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/deletepost'
+        self.accesstime = PublicUtils().location_time()
+    # accessId = ReadConfig().get_accessid('accessId')
+    # accesstime = PublicUtils().location_time()
     @allure.story('获取个人页动态数据正常')
     def test_musicpid(self,get_musicpid):
         assert get_musicpid['success'] == True
@@ -42,7 +47,7 @@ class Test_delmusics():
     @allure.story('删除音乐接口返回正常')
     @allure.severity('blocker')
     def test_delmusic(self,get_musicpid):
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/deletepost'
+        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/deletepost'
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -55,7 +60,7 @@ class Test_delmusics():
         del_data['accessSign'] = App_sign().get_sign(del_data)
         allure.attach(json.dumps(del_data), '接口数据', allure.attachment_type.JSON)
 
-        resq = requests.post(url, data=json.dumps(del_data), headers=header)
+        resq = requests.post(self.url, data=json.dumps(del_data), headers=header)
         # print(resq.json())
         assert resq.status_code == 200
         assert resq.json()['success'] == True

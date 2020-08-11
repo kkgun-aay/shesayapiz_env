@@ -10,23 +10,27 @@ import requests
 
 class Test_musichobbies:
 
+    def setup_class(self):
+        self.accessId = ReadConfig().get_accessid('accessId')
+        self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/searchhobbies'
+        self.accesstime = PublicUtils().location_time()
+
     @allure.feature('动态音乐接口')
     @allure.story('动态音乐接口返回正常')
     @allure.severity('blocker')
-
     def test_musichobbies(self):
         '''
         musichobbies图书类型接口用例
         '''
-        accessId = ReadConfig().get_accessid('accessId')
-        url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/searchhobbies'
-        accesstime = PublicUtils().location_time()
+        # accessId = ReadConfig().get_accessid('accessId')
+        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/searchhobbies'
+        # accesstime = PublicUtils().location_time()
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
         data = {
-            'accessTime': accesstime,
-            'accessId': accessId,
+            'accessTime': self.accesstime,
+            'accessId': self.accessId,
             'skip': 0,
             'sortByHot': 0,
             'type': 'music',
@@ -36,7 +40,7 @@ class Test_musichobbies:
         data['accessSign'] = App_sign().get_sign(data)
         allure.attach(json.dumps(data), '接口数据', allure.attachment_type.JSON)
 
-        resq = requests.post(url, data=json.dumps(data), headers=header)
+        resq = requests.post(self.url, data=json.dumps(data), headers=header)
         print(resq.json())
         # try:
         assert resq.status_code == 200

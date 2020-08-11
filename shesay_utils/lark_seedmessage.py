@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
-from shesay_conf.get_intdata import ReadConfig
+from shesay_conf.get_inidata import ReadConfig
 
 class LarkSeedmessage:
 
