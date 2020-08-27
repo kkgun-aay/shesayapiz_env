@@ -20,9 +20,9 @@ class Test_startstopflash:
         '''
         startflash接口用例
         '''
-        # accessId = ReadConfig().get_accessid('accessId')
+
         url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/startflash'
-        # accesstime = PublicUtils().location_time()
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }

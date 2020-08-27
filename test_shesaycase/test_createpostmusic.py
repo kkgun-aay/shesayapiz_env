@@ -15,17 +15,12 @@ class Test_musiccreatepost:
         self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/createpost'
         self.accesstime = PublicUtils().location_time()
 
-    # accessId = ReadConfig().get_accessid('accessId')
-    # accesstime = PublicUtils().location_time()
-    # @pytest.mark.run(order=1)
     @allure.story('发布音乐接口返回正常')
     @allure.severity('blocker')
     def test_musiccreatepost_a(self):
         '''
         musiccreatepost图书类型接口用例
         '''
-
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/createpost'
 
         header = {
             'Content-Type': 'application/json;charset=UTF-8'

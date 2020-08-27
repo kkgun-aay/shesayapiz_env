@@ -36,8 +36,7 @@ class Test_delmusics():
         self.accessId = ReadConfig().get_accessid('accessId')
         self.url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/deletepost'
         self.accesstime = PublicUtils().location_time()
-    # accessId = ReadConfig().get_accessid('accessId')
-    # accesstime = PublicUtils().location_time()
+
     @allure.story('获取个人页动态数据正常')
     def test_musicpid(self,get_musicpid):
         assert get_musicpid['success'] == True
@@ -47,7 +46,7 @@ class Test_delmusics():
     @allure.story('删除音乐接口返回正常')
     @allure.severity('blocker')
     def test_delmusic(self,get_musicpid):
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/deletepost'
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }

@@ -24,10 +24,7 @@ class Testprofile():
         myprofile接口用例
         '''
 
-        # accessId = ReadConfig().get_accessid('accessId')
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/myprofile'
-        # accesstime = PublicUtils().location_time()
-        # url = ReadConfig.get_host('online_host')+ ReadConfig.get_path('app_path') + 'v1/myprofile'
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -45,9 +42,6 @@ class Testprofile():
         assert resq.status_code == 200
         assert resq.json()['success'] == True
         allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        # except:
-        #     print('接口失败')
-        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_myprofile.py'])

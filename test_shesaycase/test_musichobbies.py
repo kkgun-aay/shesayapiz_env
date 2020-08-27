@@ -22,9 +22,7 @@ class Test_musichobbies:
         '''
         musichobbies图书类型接口用例
         '''
-        # accessId = ReadConfig().get_accessid('accessId')
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/searchhobbies'
-        # accesstime = PublicUtils().location_time()
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -48,10 +46,7 @@ class Test_musichobbies:
         assert 'hobbies' in resq.json()
         assert len(resq.json()['hobbies']) == 10
         allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        # except:
-        #     print(resq.json())
-        #     print('接口请求失败')
-        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_musichobbies.py'])

@@ -22,9 +22,7 @@ class Test_updatepreference:
         '''
         updatepreference接口用例
         '''
-        # accessId = ReadConfig().get_accessid('accessId')
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/updatepreference'
-        # accesstime = PublicUtils().location_time()
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -45,10 +43,7 @@ class Test_updatepreference:
         # assert 'suggestInfo' in resq.json()
         assert resq.json()['shuffle'] == True
         allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        # except:
-        #     print(resq.json())
-        #     print('接口请求失败')
-        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_updatepreference.py'])

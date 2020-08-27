@@ -22,9 +22,7 @@ class Test_bookhobbies:
         '''
         bookhobbies图书类型接口用例
         '''
-        # accessId = ReadConfig().get_accessid('accessId')
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/searchhobbies'
-        # accesstime = PublicUtils().location_time()
+
         header = {
             'Content-Type': 'application/json;charset=UTF-8'
         }

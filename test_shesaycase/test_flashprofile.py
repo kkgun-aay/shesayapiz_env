@@ -18,14 +18,12 @@ class Test_flashprofile:
     @allure.feature('闪聊接口')
     @allure.story('飞行闪聊数据')
     @allure.severity('blocker')
-    # @allure.step('冷启动app')
+
     def test_flashproflie(self):
         '''
         flashproflie接口用例
         '''
-        # accessId = ReadConfig().get_accessid('accessId')
-        # url = ReadConfig().get_host('online_host') + ReadConfig().get_path('app_path') + 'v1/flashprofile'
-        # accesstime = PublicUtils().location_time()
+
         data = {
             'accessId': self.accessId,
             'accessTime': self.accesstime
@@ -43,10 +41,7 @@ class Test_flashprofile:
         assert resq.json()['success'] == True
         assert 'flashProfile' in resq.json()
         allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
-        # except:
-        #     # print(resq.json())
-        #     print('接口请求失败')
-        #     allure.attach(json.dumps(resq.json(), ensure_ascii=False), "响应", allure.attachment_type.JSON)
+
 
 if __name__ == '__main__':
     pytest.main(['-q','-s','test_flashprofile.py'])
