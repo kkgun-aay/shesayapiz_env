@@ -48,6 +48,8 @@ class testinstallapk:
             except Exception as e:
                 print('---报错-----')
                 print("{}安装包出错,具体错误信息:{}".format(apk, e))
+                driver.remove_app("com.intelcupid.shesay")
+                continue
             else:
                 print("{}包测试完毕！".format(apk))
 
